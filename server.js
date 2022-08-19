@@ -11,6 +11,30 @@ server.get("/", (req, res, next) => {
   res.send(`<h1>rodando!</h1>`);
 });
 
+server.post("/login", (req, res, next) => {
+  conn.query(
+    `SELECT nmAdmin FROM admin WHERE nmAdmin = ?`,
+    [req.body.login],
+    (error, results) => {
+      if (results.length > 0) {
+        conn.query(
+          "SELECT senhaAdmin FROM admin WHERE nmAdmin = ?",
+          [req.body.login],
+          (error, results) => {
+            if (req.body.senha == results[0].senhaAdmin) {
+              res.send("seja Bem Vindo");
+            } else {
+              res.send("Senha Incorreta");
+            }
+          }
+        );
+      } else {
+        res.send("Usuario Não Encontrado!");
+      }
+    }
+  );
+});
+
 server.get("/admin/professores", (req, res, next) => {
   conn.query(
     "SELECT idProfessor, nmProfessor, emailProfessor, telProfessor, formacaoProfessor, endProfessor, discProfessor FROM professores ORDER BY nmProfessor",
