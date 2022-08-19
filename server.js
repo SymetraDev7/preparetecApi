@@ -12,29 +12,53 @@ server.get("/", (req, res, next) => {
 });
 
 server.get("/admin/professores", (req, res, next) => {
-  conn.query("SELECT * FROM professores", (error, results) => {
-    if (error) {
-      res.send(
-        "Parece Que ocorreu um erro, tente recarregar a pagina se o erro persistir entre em contato com o suporte técnico através do email: symetraStack@gmail.com"
-      );
-    } else {
-      res.send(results);
+  conn.query(
+    "SELECT idProfessor, nmProfessor, emailProfessor, telProfessor, formacaoProfessor, endProfessor, discProfessor FROM professores ORDER BY nmProfessor",
+    (error, results) => {
+      if (error) {
+        res.send(
+          "Parece Que ocorreu um erro, tente recarregar a pagina se o erro persistir entre em contato com o suporte técnico através do email: symetraStack@gmail.com"
+        );
+      } else {
+        res.send(results);
+      }
     }
-  });
+  );
   next;
 });
+
 server.get("/admin/alunos", (req, res, next) => {
-  conn.query("SELECT * FROM alunos", (error, results) => {
-    if (error) {
-      res.send(
-        "Parece Que ocorreu um erro, tente recarregar a pagina se o erro persistir entre em contato com o suporte técnico através do email: symetraStack@gmail.com"
-      );
-    } else {
-      res.send(results);
+  conn.query(
+    "SELECT idAluno, nmAluno, dtNascAluno, endAluno, escAluno, emailAluno, telRespAluno, poloAluno, raAluno FROM alunos ORDER BY nmAluno",
+    (error, results) => {
+      if (error) {
+        res.send(
+          "Parece Que ocorreu um erro, tente recarregar a pagina se o erro persistir entre em contato com o suporte técnico através do email: symetraStack@gmail.com"
+        );
+      } else {
+        res.send(results);
+      }
     }
-  });
+  );
   next;
 });
+
+server.get("/admin/admin", (req, res, next) => {
+  conn.query(
+    "SELECT idAdmin, nmAdmin, emailAdmin, telAdmin  FROM admin ORDER BY nmAdmin",
+    (error, results) => {
+      if (error) {
+        res.send(
+          "Parece Que ocorreu um erro, tente recarregar a pagina se o erro persistir entre em contato com o suporte técnico através do email: symetraStack@gmail.com"
+        );
+      } else {
+        res.send(results);
+      }
+    }
+  );
+  next;
+});
+
 server.get("/admin/professores/:id", (req, res, next) => {
   let id = req.params.id;
   conn.query(
@@ -52,6 +76,7 @@ server.get("/admin/professores/:id", (req, res, next) => {
   );
   next;
 });
+
 server.get("/admin/alunos/:id", (req, res, next) => {
   let id = req.params.id;
   conn.query(
@@ -69,11 +94,30 @@ server.get("/admin/alunos/:id", (req, res, next) => {
   );
   next;
 });
+
+server.get("/admin/admin/:id", (req, res, next) => {
+  let id = req.params.id;
+  conn.query(
+    `SELECT * FROM admin WHERE idAluno = ${id}`,
+    [req.params.id],
+    (error, results) => {
+      if (error) {
+        res.send(
+          "Parece Que ocorreu um erro, tente recarregar a pagina se o erro persistir entre em contato com o suporte técnico através do email: symetraStack@gmail.com"
+        );
+      } else {
+        res.send(results);
+      }
+    }
+  );
+  next;
+});
+
 server.post("/admin/professores", (req, res, next) => {
   let dadosProfessores = req.body;
   try {
     conn.query(
-      "INSERT INTO professores ( nmProfessor, cpfProfessor, emailProfessor, telProfessor, formacaoProfessor, endProfessor, discProfessor) VALUES (?,?, ?, ?, ?, ?, ?)",
+      "INSERT INTO professores ( nmProfessor, cpfProfessor, emailProfessor, telProfessor, formacaoProfessor, endProfessor, discProfessor, senhaProfessor ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
       [
         dadosProfessores.nome,
         dadosProfessores.cpf,
@@ -82,6 +126,7 @@ server.post("/admin/professores", (req, res, next) => {
         dadosProfessores.formacao,
         dadosProfessores.end,
         dadosProfessores.disc,
+        dadosProfessores.senha,
       ],
       (error, results) => {
         if (error) {
@@ -89,7 +134,9 @@ server.post("/admin/professores", (req, res, next) => {
             "Parece Que ocorreu um erro, tente recarregar a pagina se o erro persistir entre em contato com o suporte técnico através do email: symetraStack@gmail.com"
           );
         } else {
-          res.send(`Professor ${dadosProfessores.nome} Cadastrado Com Sucesso`);
+          res.send(
+            `Professor(a) ${dadosProfessores.nome} Cadastrado Com Sucesso`
+          );
         }
       }
     );
@@ -105,7 +152,7 @@ server.post("/admin/alunos", (req, res, next) => {
   let dadosAlunos = req.body;
   try {
     conn.query(
-      "INSERT INTO alunos (nmAluno, cpfAluno, dtNascAluno, endAluno, escAluno, emailAluno, telRespAluno, poloAluno) VALUES (?,?, ?, ?, ?, ?, ?, ?)",
+      "INSERT INTO alunos (nmAluno, cpfAluno, dtNascAluno, endAluno, escAluno, emailAluno, telRespAluno, poloAluno, raAluno, senhaAluno) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
       [
         dadosAlunos.nome,
         dadosAlunos.cpf,
@@ -114,7 +161,9 @@ server.post("/admin/alunos", (req, res, next) => {
         dadosAlunos.escola,
         dadosAlunos.email,
         dadosAlunos.telResp,
-        dadosAlunos.poloAluno,
+        dadosAlunos.polo,
+        dadosAlunos.ra,
+        dadosAlunos.senha,
       ],
       (error, results) => {
         if (error) {
@@ -122,7 +171,31 @@ server.post("/admin/alunos", (req, res, next) => {
             "Parece Que ocorreu um erro, tente recarregar a pagina se o erro persistir entre em contato com o suporte técnico através do email: symetraStack@gmail.com"
           );
         } else {
-          res.send(results);
+          res.send(`Aluno(a) ${dadosAlunos.nome} Cadastrada Com Sucesso`);
+        }
+      }
+    );
+  } catch (err) {
+    res.send(
+      "Parece Que ocorreu um erro, tente recarregar a pagina se o erro persistir entre em contato com o suporte técnico através do email: symetraStack@gmail.com"
+    );
+  }
+  next;
+});
+
+server.post("/admin/admin", (req, res, next) => {
+  let dadosAdmin = req.body;
+  try {
+    conn.query(
+      "INSERT INTO admin ( nmAdmin, emailAdmin, senhaAdmin, telAdmin) VALUES (?, ?, ?, ?)",
+      [dadosAdmin.nome, dadosAdmin.email, dadosAdmin.senha, dadosAdmin.tel],
+      (error, results) => {
+        if (error) {
+          res.send(
+            "Parece Que ocorreu um erro, tente recarregar a pagina se o erro persistir entre em contato com o suporte técnico através do email: symetraStack@gmail.com"
+          );
+        } else {
+          res.send(`Admnistrador(a) ${dadosAdmin.nome} Cadastrado Com Sucesso`);
         }
       }
     );
@@ -168,7 +241,7 @@ server.patch("/admin/alunos/:id", (req, res, next) => {
   let id = req.params.id;
 
   conn.query(
-    `UPDATE alunos SET nmAluno = ?, cpfAluno = ?, dtNascAluno = ?, endAluno = ?, escAluno = ?, emailAluno = ?, telRespAluno = ? poloAluno = ? WHERE idProfessor = ${id}`,
+    `UPDATE alunos SET nmAluno = ?, cpfAluno = ?, dtNascAluno = ?, endAluno = ?, escAluno = ?, emailAluno = ?, telRespAluno = ? ,poloAluno = ?, raAluno = ?,senhaAluno = ? WHERE idAluno = ${id}`,
     [
       dadosAlunos.nome,
       dadosAlunos.cpf,
@@ -177,11 +250,14 @@ server.patch("/admin/alunos/:id", (req, res, next) => {
       dadosAlunos.escola,
       dadosAlunos.email,
       dadosAlunos.telResp,
-      dadosAlunos.poloAluno,
+      dadosAlunos.polo,
+      dadosAlunos.ra,
+      dadosAlunos.senha,
     ],
     (err, results) => {
       if (err) {
         res.send(
+          err,
           "Parece Que ocorreu um erro, tente recarregar a pagina se o erro persistir entre em contato com o suporte técnico através do email: symetraStack@gmail.com"
         );
       } else {
@@ -198,11 +274,9 @@ server.delete("/admin/professores/:id", (req, res, next) => {
     `DELETE FROM professores WHERE idProfessor = ${id}`,
     (err, results) => {
       if (err) {
-        res.send(
-          "Parece Que ocorreu um erro, tente recarregar a pagina se o erro persistir entre em contato com o suporte técnico através do email: symetraStack@gmail.com"
-        );
+        res.send(err);
       } else {
-        res.send("Professor Deletado Com Sucesso");
+        res.send("Professor(a Deletado Com Sucesso");
       }
     }
   );
@@ -210,13 +284,27 @@ server.delete("/admin/professores/:id", (req, res, next) => {
 });
 server.delete("/admin/alunos/:id", (req, res, next) => {
   let id = req.params.id;
-  conn.query(`DELETE FROM alunos WHERE idProfessor = ${id}`, (err, results) => {
+  conn.query(`DELETE FROM alunos WHERE idAluno = ${id}`, (err, results) => {
     if (err) {
       res.send(
         "Parece Que ocorreu um erro, tente recarregar a pagina se o erro persistir entre em contato com o suporte técnico através do email: symetraStack@gmail.com"
       );
     } else {
-      res.send(results);
+      res.send("Aluno(a) Deletado Com Sucesso");
+    }
+  });
+  next;
+});
+
+server.delete("/admin/admin/:id", (req, res, next) => {
+  let id = req.params.id;
+  conn.query(`DELETE FROM admin WHERE idAdmin = ${id}`, (err, results) => {
+    if (err) {
+      res.send(
+        "Parece Que ocorreu um erro, tente recarregar a pagina se o erro persistir entre em contato com o suporte técnico através do email: symetraStack@gmail.com"
+      );
+    } else {
+      res.send(`Admnistrador(a) Deletado Com Sucesso`);
     }
   });
   next;
