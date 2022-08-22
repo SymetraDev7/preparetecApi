@@ -5,7 +5,7 @@ const conn = mysql.createConnection({
   host: "127.0.0.1",
   user: "root",
   database: "preparetec",
-  password: "044825",
+  password: "admin",
   port: 3306,
 });
 

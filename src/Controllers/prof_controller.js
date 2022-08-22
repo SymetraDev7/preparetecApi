@@ -6,7 +6,7 @@ module.exports = {
       (error, results) => {
         if (error) {
           res.send(
-            "Parece Que ocorreu um erro, tente recarregar a pagina se o erro persistir entre em contato com o suporte técnico através do email: symetraStack@gmail.com"
+           "Parece Que ocorreu um erro, tente recarregar a pagina se o erro persistir entre em contato com o suporte técnico através do email: symetraStack@gmail.com"
           );
         } else {
           if (results.length > 0) {
@@ -67,6 +67,7 @@ module.exports = {
               (error, results) => {
                 if (error) {
                   res.send(
+                    error,
                     "Parece Que ocorreu um erro, tente recarregar a pagina se o erro persistir entre em contato com o suporte técnico através do email: symetraStack@gmail.com"
                   );
                 } else {
