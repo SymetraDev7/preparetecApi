@@ -3,12 +3,12 @@ const conn = require("../config/bancoDeDados");
 module.exports = {
   login(req, res, next) {
     conn.query(
-      `SELECT nmAdmin FROM admin WHERE nmAdmin = ?`,
+      `SELECT emailAdmin FROM admin WHERE emailAdmin = ?`,
       [req.body.login],
       (error, results) => {
         if (results.length > 0) {
           conn.query(
-            "SELECT senhaAdmin FROM admin WHERE nmAdmin = ?",
+            "SELECT senhaAdmin FROM admin WHERE emailAdmin = ?",
             [req.body.login],
             (error, results) => {
               if (req.body.senha == results[0].senhaAdmin) {
