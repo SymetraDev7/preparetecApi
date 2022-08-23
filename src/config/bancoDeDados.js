@@ -2,10 +2,10 @@ const mysql = require("mysql2");
 
 // create the connection to database
 const conn = mysql.createConnection({
-  host: "sql202.epizy.com",
-  user: "epiz_32058904",
-  database: "epiz_32058904_preparetec_api",
-  password: "aY1jL9wY5dXj6t",
+  host: "srv64.prodns.com.br",
+  user: "hallt147_banco",
+  database: "hallt147_banco",
+  password: "banco123",
   port: 3306,
 });
 

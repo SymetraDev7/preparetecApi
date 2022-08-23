@@ -19,6 +19,7 @@ module.exports = {
     );
     next;
   },
+
   getProfById(req, res, next) {
     let id = req.params.id;
     conn.query(
@@ -40,6 +41,7 @@ module.exports = {
     );
     next;
   },
+
   addProf(req, res, next) {
     let dadosProfessores = req.body;
     conn.query(
@@ -83,6 +85,7 @@ module.exports = {
     );
     next;
   },
+  
   updateProf(req, res, next) {
     let dadosProfessores = req.body;
     let id = req.params.id;
