@@ -2,7 +2,7 @@ create database preparetec;
 use preparetec;
 
 CREATE TABLE admin (
-  idAdmin INT NOT NULL,
+  idAdmin INT NOT NULL AUTO_INCREMENT,
   nmAdmin VARCHAR(100) NOT NULL,
   emailAdmin VARCHAR(100) NOT NULL,
   telAdmin VARCHAR(15) NOT NULL,
@@ -24,8 +24,8 @@ CREATE TABLE alunos (
   PRIMARY KEY (`idAluno`));
   
 CREATE TABLE professores (
-  idProfessores INT NOT NULL,
-  nmProfessor VARCHAR(100) NOT NULL AUTO_INCREMENT,
+  idProfessor INT NOT NULL AUTO_INCREMENT,
+  nmProfessor VARCHAR(100) NOT NULL ,
   emailProfessor VARCHAR(100) NOT NULL,
   cpfProfessor VARCHAR(14) NOT NULL,
   telProfessor VARCHAR(15) NOT NULL,

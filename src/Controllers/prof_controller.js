@@ -2,11 +2,12 @@ const conn = require("../config/bancoDeDados");
 module.exports = {
   getAllProf(req, res, next) {
     conn.query(
-      "SELECT idProfessor, nmProfessor, emailProfessor, telProfessor, formacaoProfessor, endProfessor, discProfessor FROM professores ORDER BY nmProfessor",
+      "SELECT nmProfessor, emailProfessor, telProfessor, formacaoProfessor, endProfessor, discProfessor, idProfessor FROM professores ORDER BY nmProfessor",
       (error, results) => {
         if (error) {
           res.send(
-           "Parece Que ocorreu um erro, tente recarregar a pagina se o erro persistir entre em contato com o suporte técnico através do email: symetraStack@gmail.com"
+            //  "Parece Que ocorreu um erro, tente recarregar a pagina se o erro persistir entre em contato com o suporte técnico através do email: symetraStack@gmail.com"
+            error
           );
         } else {
           if (results.length > 0) {

@@ -3,7 +3,7 @@ const conn = require("../config/bancoDeDados");
 module.exports = {
   getAllAlunos(req, res, next) {
     conn.query(
-      "SELECT idAluno, nmAluno, dtNascAluno, endAluno, escAluno, emailAluno, telRespAluno, poloAluno, raAluno FROM alunos ORDER BY nmAluno",
+      "SELECT nmAluno, dtNascAluno, endAluno, escAluno, emailAluno, telRespAluno, poloAluno, raAluno, idAluno FROM alunos ORDER BY nmAluno",
       (error, results) => {
         if (error) {
           res.send(
