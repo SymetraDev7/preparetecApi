@@ -12,14 +12,14 @@ module.exports = {
             [req.body.login],
             (error, results) => {
               if (req.body.senha == results[0].senhaAdmin) {
-                res.send("seja Bem Vindo");
+                res.send({ data: "seja Bem Vindo", code: 200 });
               } else {
-                res.send("Senha Incorreta");
+                res.send({ data: "Senha Incorreta", code: 403 });
               }
             }
           );
         } else {
-          res.send("Usuario Não Encontrado!");
+          res.send({ data: "Usuario Não Encontrado!", code: 404 });
         }
       }
     );

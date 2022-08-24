@@ -11,7 +11,7 @@ Routes.get("/", (req, res, next) => {
 });
 
 //rotas login
-Routes.get("/admin/login", loginController.login);
+Routes.post("/admin/login", loginController.login);
 
 //rotas prof
 Routes.get("/admin/professores", profController.getAllProf);
