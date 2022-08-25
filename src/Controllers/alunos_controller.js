@@ -6,14 +6,14 @@ module.exports = {
       "SELECT nmAluno, dtNascAluno, endAluno, escAluno, emailAluno, telRespAluno, poloAluno, raAluno, idAluno FROM alunos ORDER BY nmAluno",
       (error, results) => {
         if (error) {
-          res.send(
-            "Parece Que ocorreu um erro, tente recarregar a pagina se o erro persistir entre em contato com o suporte técnico através do email: symetraStack@gmail.com"
-          );
+          res.send({
+            data: "Parece Que ocorreu um erro, tente recarregar a pagina se o erro persistir entre em contato com o suporte técnico através do email: symetraStack@gmail.com",
+          });
         } else {
           if (results.length > 0) {
-            res.send(results);
+            res.send({ data: results });
           } else {
-            res.send("Nenhum(a) Aluno(a) Cadastrado(a)");
+            res.send({ data: "Nenhum(a) Aluno(a) Cadastrado(a)" });
           }
         }
       }
@@ -28,14 +28,14 @@ module.exports = {
       [req.params.id],
       (error, results) => {
         if (error) {
-          res.send(
-            "Parece Que ocorreu um erro, tente recarregar a pagina se o erro persistir entre em contato com o suporte técnico através do email: symetraStack@gmail.com"
-          );
+          res.send({
+            data: "Parece Que ocorreu um erro, tente recarregar a pagina se o erro persistir entre em contato com o suporte técnico através do email: symetraStack@gmail.com",
+          });
         } else {
           if (results.length > 0) {
-            res.send(results);
+            res.send({ data: results });
           } else {
-            res.send("Aluno(a) Não Encontrado(a)");
+            res.send({ data: "Aluno(a) Não Encontrado(a)" });
           }
         }
       }
@@ -50,10 +50,10 @@ module.exports = {
       [req.body.cpf],
       (error, results) => {
         if (error) {
-          res.send(error);
+          res.send({ data: error });
         } else {
           if (results.length > 0) {
-            res.send("Aluno(a) Já Cadastrado(a)");
+            res.send({ data: "Aluno(a) Já Cadastrado(a)" });
           } else {
             conn.query(
               "INSERT INTO alunos (nmAluno, cpfAluno, dtNascAluno, endAluno, escAluno, emailAluno, telRespAluno, poloAluno, raAluno, senhaAluno) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
@@ -71,13 +71,13 @@ module.exports = {
               ],
               (error, results) => {
                 if (error) {
-                  res.send(
-                    "Parece Que ocorreu um erro, tente recarregar a pagina se o erro persistir entre em contato com o suporte técnico através do email: symetraStack@gmail.com"
-                  );
+                  res.send({
+                    data: "Parece Que ocorreu um erro, tente recarregar a pagina se o erro persistir entre em contato com o suporte técnico através do email: symetraStack@gmail.com",
+                  });
                 } else {
-                  res.send(
-                    `Aluno(a) ${dadosAlunos.nome} Cadastrada Com Sucesso`
-                  );
+                  res.send({
+                    data: `Aluno(a) ${dadosAlunos.nome} Cadastrada Com Sucesso`,
+                  });
                 }
               }
             );
@@ -96,7 +96,7 @@ module.exports = {
       [id],
       (error, results) => {
         if (error) {
-          res.send(error);
+          res.send({ data: error });
         } else {
           if (results.length > 0) {
             conn.query(
@@ -115,19 +115,18 @@ module.exports = {
               ],
               (err, results) => {
                 if (err) {
-                  res.send(
-                    err,
-                    "Parece Que ocorreu um erro, tente recarregar a pagina se o erro persistir entre em contato com o suporte técnico através do email: symetraStack@gmail.com"
-                  );
+                  res.send({
+                    data: "Parece Que ocorreu um erro, tente recarregar a pagina se o erro persistir entre em contato com o suporte técnico através do email: symetraStack@gmail.com",
+                  });
                 } else {
-                  res.send(
-                    `Dados do Aluno(a) ${dadosAlunos.nome} Alterados Com Sucesso`
-                  );
+                  res.send({
+                    data: `Dados do Aluno(a) ${dadosAlunos.nome} Alterados Com Sucesso`,
+                  });
                 }
               }
             );
           } else {
-            res.send("Aluno(a) Não Encontrado(a)");
+            res.send({ data: "Aluno(a) Não Encontrado(a)" });
           }
         }
       }
@@ -140,14 +139,14 @@ module.exports = {
     let id = req.params.id;
     conn.query(`DELETE FROM alunos WHERE idAluno = ${id}`, (err, results) => {
       if (err) {
-        res.send(
-          "Parece Que ocorreu um erro, tente recarregar a pagina se o erro persistir entre em contato com o suporte técnico através do email: symetraStack@gmail.com"
-        );
+        res.send({
+          data: "Parece Que ocorreu um erro, tente recarregar a pagina se o erro persistir entre em contato com o suporte técnico através do email: symetraStack@gmail.com",
+        });
       } else {
         if (results.affectedRows > 0) {
-          res.send("Aluno(a) Deletado Com Sucesso");
+          res.send({ data: "Aluno(a) Deletado Com Sucesso" });
         } else {
-          res.send("Aluno(a) Não Encontrado(a)");
+          res.send({ data: "Aluno(a) Não Encontrado(a)" });
         }
       }
     });
