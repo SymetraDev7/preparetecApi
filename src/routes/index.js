@@ -5,7 +5,7 @@ const alunosController = require("../Controllers/alunos_controller");
 const adminController = require("../Controllers/admin_controller");
 const loginController = require("../Controllers/login_controller");
 
-//rota princi
+//rota principal
 Routes.get("/", (req, res, next) => {
   res.send(`<h1>rodando!</h1>`);
 });
@@ -32,5 +32,6 @@ Routes.get("/admin/admin", adminController.getAllAdmin);
 Routes.get("/admin/admin/:id", adminController.getAdminById);
 Routes.post("/admin/admin", adminController.addAdmin);
 Routes.delete("/admin/admin/:id", adminController.deleteAdmin);
+Routes.get('/admin/list');
 
 module.exports = Routes;
