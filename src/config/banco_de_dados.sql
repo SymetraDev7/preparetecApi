@@ -33,4 +33,4 @@ CREATE TABLE professores (
   endProfessor VARCHAR(200) NOT NULL,
   discProfessor VARCHAR(100) NOT NULL,
   senhaProfessor VARCHAR(8) NOT NULL,
-  PRIMARY KEY (`idProfessores`));
+  PRIMARY KEY (`idProfessor`));
